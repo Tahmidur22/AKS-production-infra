@@ -1,0 +1,15 @@
+# certificate.yaml
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tls-secret
+  namespace: default
+spec:
+  secretName: tls-secret
+  duration: 2160h # 90 days
+  renewBefore: 360h # 15 days before expiry
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - hello.ptm-app.com
