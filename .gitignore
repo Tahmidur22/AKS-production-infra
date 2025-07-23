@@ -9,3 +9,6 @@
 .terraform.tfstate.lock.info
 .terraform.lock.hcl
 .terraform.tfstate.backup.*
+
+
+**/.k8s/bash/*
