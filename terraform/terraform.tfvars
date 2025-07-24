@@ -23,3 +23,7 @@ dns_prefix      = "aksdns20250715tc"
 node_count      = 3
 vm_size         = "Standard_DS2_v2"
 
+// Azure Container Registry Variables
+acr_name            = "acr20250715tc"
+acr_sku             = "Standard"
+acr_admin_enabled   = true

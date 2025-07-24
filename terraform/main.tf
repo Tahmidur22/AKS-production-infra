@@ -33,3 +33,12 @@ module "aks" {
   resource_group_name = module.rg.resource_group_name
   location            = module.rg.location
 }
+
+module "acr" {
+  source              = "./modules/acr"
+  acr_name            = var.acr_name
+  resource_group_name = module.rg.resource_group_name
+  location            = module.rg.location
+  acr_sku             = var.acr_sku
+  acr_admin_enabled   = var.acr_admin_enabled
+}

@@ -72,3 +72,18 @@ variable "vm_size" {
   description = "The size of the virtual machines in the default node pool."
   type        = string
 }
+
+variable "acr_name" {
+  description = "The name of the Azure Container Registry."
+  type        = string
+}
+variable "acr_sku" {
+  description = "The SKU of the Azure Container Registry. Possible values are Basic, Standard, and Premium."
+  type        = string
+  default     = "Standard"
+}
+variable "acr_admin_enabled" {
+  description = "Whether to enable the admin user for the Azure Container Registry."
+  type        = bool
+  default     = true
+}
