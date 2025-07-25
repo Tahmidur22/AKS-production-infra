@@ -1,1 +1,32 @@
+name: Build and Push Docker Image to ACR
 
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to ACR
+        run: |
+          echo ${{ secrets.ACR_PASSWORD }} | docker login acr20250715tc.azurecr.io -u ${{ secrets.ACR_USERNAME }} --password-stdin
+
+      - name: Build Docker image
+        run: |
+          docker build -t acr20250715tc.azurecr.io/timer-app:latest .
+
+      - name: Scan Docker image with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'acr20250715tc.azurecr.io/timer-app:latest'
+          format: 'table'
+
+      - name: Push Docker image to ACR
+        run: |
+          docker push acr20250715tc.azurecr.io/timer-app:latest
