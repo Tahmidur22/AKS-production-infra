@@ -15,8 +15,8 @@ spec:
     spec:
       containers:
         - name: my-app
-          image: hashicorp/http-echo:latest
-          args:
-            - "-text=hello world"
+          image: acr20250715tc.azurecr.io/timer-app:latest
           ports:
-            - containerPort: 5678
+            - containerPort: 3000
+      imagePullSecrets:
+        - name: acr-secret
