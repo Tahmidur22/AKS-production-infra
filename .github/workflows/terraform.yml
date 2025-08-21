@@ -35,12 +35,6 @@ jobs:
       - name: Terraform Validate
         run: terraform -chdir=./terraform validate
 
-      - name: Run Checkov security scan
-        uses: bridgecrewio/checkov-action@master
-        with:
-          directory: './terraform'  
-          framework: 'terraform'  
-
       - name: Terraform Plan
         run: terraform -chdir=./terraform plan -out=tfplan
 

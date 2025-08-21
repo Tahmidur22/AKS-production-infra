@@ -18,5 +18,3 @@ spec:
           image: acr20250715tc.azurecr.io/timer-app:latest
           ports:
             - containerPort: 3000
-      imagePullSecrets:
-        - name: acr-secret
