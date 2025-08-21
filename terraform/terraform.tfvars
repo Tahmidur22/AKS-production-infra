@@ -19,7 +19,7 @@ nsg_name                        = "aks-nsg-20250715tc"
 
 // AKS Variables
 aks_name        = "aks-cluster-20250715tc"
-dns_prefix      = "aksdns20250715tc"
+dns_prefix      = "aksprod"
 node_count      = 3
 vm_size         = "Standard_DS2_v2"
 

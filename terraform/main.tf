@@ -27,8 +27,8 @@ module "network" {
 module "aks" {
   source              = "./modules/aks"
   aks_name            = var.aks_name
-  dns_prefix          = var.dns_prefix
   node_count          = var.node_count
+  dns_prefix          = var.dns_prefix
   vm_size             = var.vm_size
   resource_group_name = module.rg.resource_group_name
   location            = module.rg.location
