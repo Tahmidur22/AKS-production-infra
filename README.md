@@ -1,5 +1,20 @@
 # AKS-production-infra
 
+This project demonstrates deploying a cloud application on a production-grade Azure AKS cluster using best practices in infrastructure automation, security and observability. 
+
+
+## 🔧 Key Features
+
+| **Features**                             | **Description**                                                                                  |
+|-------------------------------------------|--------------------------------------------------------------------------------------------------|
+| **Infrastructure as Code (IaC)** | Reusable Terraform modules for AKS, VNet etc...        |
+| **Ingress & Security** | NGINX Ingress Controller with HTTPS via CertManager.                        |
+| **DNS**        | Automated DNS record management with ExternalDNS.       |
+| **Docker**                              | Docker build pipeline with push to ACR.      |
+| **GitOps**                              | ArgoCD automates application deployments, keeping cluster state in sync with Git.     |
+| **Monitoring & Observability**          | Prometheus for metrics collection and Grafana for real-time dashboards.     |
+                                                    
+
 
 ## Install NGINX Ingress Controller 
 
@@ -69,6 +84,14 @@ kubectl describe certificate tls-secret -n default
 kubectl logs -l app=cert-manager -n cert-manager
 kubectl get secret route53-credentials-secret -n cert-manager -o yaml
 ```
+
+
+
+
+
+## 🎯 Outcome
+
+End-to-end automated delivery pipeline where the app is securely accessible over HTTPS at a custom domain, continuously deployed and monitored with GitOps best practices.
 
 
 
