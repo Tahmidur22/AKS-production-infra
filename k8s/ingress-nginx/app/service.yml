@@ -4,10 +4,10 @@ metadata:
   name: app-service
   namespace: default
 spec:
+  type: LoadBalancer
   selector:
     app: my-app
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 3000
-      #5678
+      port: 80      
+      targetPort: 3000 

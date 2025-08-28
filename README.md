@@ -14,6 +14,20 @@ This project demonstrates deploying a cloud application on a production-grade Az
 | **GitOps**                              | ArgoCD automates application deployments, keeping cluster state in sync with Git.     |
 | **Monitoring & Observability**          | Prometheus for metrics collection and Grafana for real-time dashboards.     |
                                                     
+## Inital Setup 
+
+- Clone project 
+- Apply terraform 
+- Run ACR Actions workflow 
+- Fetech aks credentials - az aks get-credentials --resource-group <RESOURCE_GROUP> --name <CLUSTER_NAME> --overwrite-existing
+- Updates your ~/.kube/config with the correct API server endpoint - az aks list -o table
+- Attach Acr
+```hcl
+az aks update \
+  --name <CLUSTER_NAME> \
+  --resource-group <RESOURCE_GROUP> \
+  --attach-acr <ACR_NAME>
+```
 
 
 ## Install NGINX Ingress Controller 
@@ -51,7 +65,7 @@ kubectl get secret route53-credentials-secret -n cert-manager
 
 ```hcl
 kubectl apply -f cluster-issuer.yml
-kubectl get clusterissuer letsencrypt-prod -o yml
+kubectl get clusterissuer letsencrypt-prod -o yaml
 ```
 
 ## Ingress Class 
@@ -85,9 +99,37 @@ kubectl logs -l app=cert-manager -n cert-manager
 kubectl get secret route53-credentials-secret -n cert-manager -o yaml
 ```
 
+## DNS 
+```hcl
+kubectl apply -f external-dns-rbac.yaml
+kubectl apply -f external-dns.yaml
+kubectl get pods -n cert-manager -l app=external-dns
+```
 
+## Monitoring 
 
+```hcl
+kubectl create namespace monitoring
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
 
+helm install kube-prometheus prometheus-community/kube-prometheus-stack \
+  --namespace monitoring
+
+kubectl apply -f monitoring-ingress.yml
+
+kubectl get ingress -n monitoring
+
+kubectl get svc -n monitoring
+
+kubectl get secret -n monitoring kube-prometheus-grafana -o jsonpath="{.data.admin-user}" | base64 --decode; echo
+kubectl get secret -n monitoring kube-prometheus-grafana -o jsonpath="{.data.admin-password}" | base64 --decode; echo
+
+```
+
+Troubleshoot
+
+- Run kubectl get ingress app-ingress - check address matches with DNS provider i.e. A record
 
 ## 🎯 Outcome
 
